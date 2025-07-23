@@ -300,6 +300,7 @@ class Quizioner extends BaseController
   }
   public function adminCreate()
   {
+    helper('jwt'); // nama file helper-nya tanpa _helper.php
     $session = session();
     $userModel = new UserModel();
     $error_msg = $session->get("error_input");

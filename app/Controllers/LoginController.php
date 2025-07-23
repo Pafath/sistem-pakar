@@ -35,13 +35,14 @@ class LoginController extends BaseController
   {
     $username = $this->request->getPost("username");
     $password = $this->request->getPost("password");
-
+log_message('debug', 'Session Save Dipanggil');
     $validationResult = $this->isValidateInput();
     if ($validationResult !== true) {
       return redirect()->back()->withInput()->with('errors', $validationResult);
     }
     $loginModel = new LoginModel();
     $getData = $loginModel->findUserByUsername($username);
+    var_dump("masukk");
     if (isset($getData)) {
       $userData = new User();
       $userData->id = $getData->id;

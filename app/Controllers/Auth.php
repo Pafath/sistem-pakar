@@ -156,22 +156,22 @@ class Auth extends BaseController
 
   public function postLogin()
   {
+
+   
     $session = session();
     $sessionModel = new SessionModel();
     $auth = new Authentication($session, $sessionModel);
-
     $userInfo = $this->getLogin();
     if (isset($userInfo['error'])) {
       return view('User/login', array('error' => $userInfo['error']));
     }
     $dataJWT =  getSignedJWTForUser($userInfo);
-    /*
     if ($auth->isUserLoggedIn($userInfo['id'])) {
       $dataAuth = $auth->findUserById($userInfo['id']);
       return redirect()
         ->setCookie("access_token",  $dataAuth['access_token'], getenv('JWT_TIME_TO_LIVE'))
         ->to("/");
-    }*/
+    }
     $waktu = (time() + intVal(getenv('JWT_TIME_TO_LIVE')));
     $sesi = null;
     try {
@@ -182,6 +182,7 @@ class Auth extends BaseController
       if ($sesi == null) {
         $auth->addAuth($userInfo['id'], $dataJWT['access_token'], $waktu);
       }
+      $session->set('logged_in', true); // tambahkan ini
       return redirect()
         ->setCookie("access_token",  $dataJWT['access_token'], getenv('JWT_TIME_TO_LIVE'))
         ->to("/");
@@ -240,8 +241,8 @@ class Auth extends BaseController
   private function getLogin()
   {
     $rules = [
-      'account' => 'required|min_length[3]|max_length[255]',
-      'password' => 'required|min_length[6]|max_length[255]|validateUser[account, password]'
+      'username' => 'required|min_length[3]|max_length[255]',
+      'password' => 'required|min_length[6]|max_length[255]|validateUser[username, password]'
     ];
 
     $errors = [
@@ -251,14 +252,11 @@ class Auth extends BaseController
     ];
 
     $input = $this->getRequestInput($this->request);
+
     $userModel = new UserModel();
 
-    if (!$this->validateRequest($input, $rules, $errors)) {
-      return [
-        'error' =>  $this->validator->getErrors()
-      ];
-    }
-    $user = $userModel->findUserByEmailOrUsername($input['account']);
+
+    $user = $userModel->findUserByEmailOrUsername($input['username']);
     return $user;
   }
   private function getJWTForUser(string $email, int $responseCode = ResponseInterface::HTTP_OK)

@@ -12,9 +12,9 @@ $routes->set404Override();
 $routes->setAutoRoute(true);
 
 
-$routes->get('/', 'Home::index', ['filter' => 'auth']);
-$routes->get('/start', 'Home::quiz', ['filter' => 'auth']);
-$routes->get('/informasi', 'Home::informasi', ['filter' => 'auth']);
+$routes->get('/', 'Home::index');
+$routes->get('/start', 'Home::quiz');
+$routes->get('/informasi', 'Home::informasi');
 
 
 $routes->get('/auth/login', "Auth::login");
@@ -22,12 +22,12 @@ $routes->post('/auth/postlogin', 'Auth::postLogin');
 $routes->get('/auth/register', "Auth::register");
 $routes->post('/auth/register', 'Auth::postRegister');
 $routes->post('/auth/logout', 'Auth::logout');
-$routes->get('/account/list', 'Auth::listAccounts', ['filter' => 'auth']);
+$routes->get('/account/list', 'Auth::listAccounts');
 $routes->get('/account/edit', 'Auth::editAccount', ['filter' => 'auth']);
 $routes->post('/account/postedit', 'Auth::postEditAccount', ['filter' => 'auth']);
 $routes->post('/account/delete', 'Auth::deleteAccount', ['filter' => 'auth']);
 $routes->get('/error_page', "Home::errorPage");
-$routes->get("/admin/create-quiz", "Quizioner::adminCreate", ['filter' => 'auth']);
+$routes->get("/admin/create-quiz", "Quizioner::adminCreate");
 $routes->get("/admin/create-formula", "Quizioner::adminCreateFormula", ['filter' => 'auth']);
 $routes->post('/admin/post-create-formula', "Quizioner::adminPostFormula", ['filter' => 'auth']);
 $routes->get("/admin/list-formula", "Quizioner::adminListFormula", ['filter' => 'auth']);

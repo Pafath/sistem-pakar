@@ -135,7 +135,7 @@ if (isset($questions)) {
               <div class="card-body">
                 <div class="row">
                   <div class="col-12 col-md-3 d-flex justify-content-center align-items-center">
-                    <img src="/assets/img/logo/air.jpg" alt="" class="img-fluid logo" width="500" />
+                    <img src="img/logo/air.jpg" alt="" class="img-fluid logo" width="500" />
                   </div>
                   <div class="col-12 col-md-8 pt-5 ">
                     <h1 class="text-primary">Terhidrasi</h1>
